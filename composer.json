@@ -1,12 +1,12 @@
 {
-  "name": "foccy/alipay",
+  "name": "kollway/alipay",
   "description": "Alipay payment library.",
   "type": "library",
   "license": "MIT",
   "authors": [
     {
-      "name": "foccy",
-      "email": "me@foccy.com"
+      "name": "kollway",
+      "email": "app@kollway.com"
     }
   ],
   "require": {
@@ -14,7 +14,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Foccy\\Alipay\\": "src/Foccy/Alipay"
+      "Kollway\\Alipay\\": "src/Kolllway/Alipay"
     }
   }
 }
