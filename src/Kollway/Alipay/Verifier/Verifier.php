@@ -1,6 +1,6 @@
 <?php
 
-namespace Foccy\Alipay\Verifier;
+namespace Kollway\Alipay\Verifier;
 
 
 use Foccy\Alipay\Alipay;

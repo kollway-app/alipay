@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Foccy\Alipay;
+namespace Kollway\Alipay;
 
 
 use Foccy\Alipay\Exception\AlipayException;

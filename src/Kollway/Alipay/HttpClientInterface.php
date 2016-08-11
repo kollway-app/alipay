@@ -1,6 +1,6 @@
 <?php
 
-namespace Foccy\Alipay;
+namespace Kollway\Alipay;
 
 
 interface HttpClientInterface

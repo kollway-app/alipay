@@ -1,6 +1,6 @@
 <?php
 
-namespace Foccy\Alipay\Signer;
+namespace Kollway\Alipay\Signer;
 
 
 class MD5Signer implements SignerInterface

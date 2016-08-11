@@ -1,6 +1,6 @@
 <?php
 
-namespace Foccy\Alipay\Pay;
+namespace Kollway\Alipay\Pay;
 
 
 use Foccy\Alipay\Alipay;

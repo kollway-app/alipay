@@ -1,6 +1,6 @@
 <?php
 
-namespace Foccy\Alipay\Exception;
+namespace Kollway\Alipay\Exception;
 
 
 use Exception;
