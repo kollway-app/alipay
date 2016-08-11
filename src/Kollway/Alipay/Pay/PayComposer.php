@@ -3,9 +3,9 @@
 namespace Kollway\Alipay\Pay;
 
 
-use Foccy\Alipay\Alipay;
-use Foccy\Alipay\Signer\SignerInterface;
-use Foccy\Alipay\Utils;
+use Kollway\Alipay\Alipay;
+use Kollway\Alipay\Signer\SignerInterface;
+use Kollway\Alipay\Utils;
 
 class PayComposer
 {

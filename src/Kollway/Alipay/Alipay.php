@@ -4,10 +4,10 @@
 namespace Kollway\Alipay;
 
 
-use Foccy\Alipay\Exception\AlipayException;
-use Foccy\Alipay\Pay\PayComposer;
-use Foccy\Alipay\Signer\SignerInterface;
-use Foccy\Alipay\Verifier\Verifier;
+use Kollway\Alipay\Exception\AlipayException;
+use Kollway\Alipay\Pay\PayComposer;
+use Kollway\Alipay\Signer\SignerInterface;
+use Kollway\Alipay\Verifier\Verifier;
 
 class Alipay
 {

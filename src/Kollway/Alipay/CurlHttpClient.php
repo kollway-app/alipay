@@ -3,7 +3,7 @@
 namespace Kollway\Alipay;
 
 
-use Foccy\Alipay\Exception\HttpException;
+use Kollway\Alipay\Exception\HttpException;
 
 class CurlHttpClient implements HttpClientInterface
 {

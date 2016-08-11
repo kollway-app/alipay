@@ -3,8 +3,8 @@
 namespace Kollway\Alipay\Verifier;
 
 
-use Foccy\Alipay\Alipay;
-use Foccy\Alipay\Utils;
+use Kollway\Alipay\Alipay;
+use Kollway\Alipay\Utils;
 
 class Verifier
 {
