@@ -14,7 +14,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Kollway\\Alipay\\": "src/Kolllway/Alipay"
+      "Kollway\\Alipay\\": "src/Kollway/Alipay"
     }
   }
 }
