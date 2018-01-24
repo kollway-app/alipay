@@ -10,6 +10,8 @@ interface SignerInterface
 
     const TYPE_RSA = 'RSA';
 
+    const TYPE_RSA2 = 'RSA2';
+
     /**
      * Sign the raw data.
      *
