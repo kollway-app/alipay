@@ -13,6 +13,13 @@ class Alipay
 {
 
     /**
+     * 应用ID '2018012402059482'
+     *
+     * @var string
+     */
+    protected $app_id;
+
+    /**
      * 合作伙伴 ID '2000202202020'
      *
      * @var string
@@ -33,14 +40,17 @@ class Alipay
      */
     protected $defaultSignType;
 
+    protected $params;
+
     /**
      * 新建实例
      *
      * @param string $partner
      */
-    public function __construct($partner)
-    {
+    public function __construct($app_id, $partner) {
+        $this->app_id = $app_id;
         $this->partner = $partner;
+        $this->params = array();
     }
 
     /**
@@ -93,6 +103,15 @@ class Alipay
     }
 
     /**
+     * 获取应用ID
+     *
+     * @return string
+     */
+    public function getAppId() {
+        return $this->app_id;
+    }
+
+    /**
      * 获取合作伙伴ID
      *
      * @return string
@@ -100,6 +119,20 @@ class Alipay
     public function getPartner()
     {
         return $this->partner;
+    }
+
+    public function getParams() {
+        return $this->params;
+    }
+
+    public function setParams($params) {
+        $this->params = $params;
+    }
+
+    public function putParam($key, $value) {
+        if($this->params) {
+            $this->params[$key] = $value;
+        }
     }
 
     /**
@@ -168,16 +201,20 @@ class Alipay
      */
     public function createMobilePay($outTradeNo, $subject, $body, $fee, $notifyUrl)
     {
-        $params = array(
-            'service' =>'mobile.securitypay.pay',
-            'payment_type' =>'1',
-            '_input_charset' =>'utf-8',
-            'notify_url' => $notifyUrl,
+        $params = $this->getParams();
+        $biz_content = array(
+            'timeout_express' => '30m',
+            'product_code' => 'QUICK_MSECURITY_PAY',
             'out_trade_no' => $outTradeNo,
+            'total_amount' => $fee,
             'subject' => $subject,
             'body' => $body,
-            'total_fee' => $fee,
         );
+        $params['method'] = 'alipay.trade.app.pay';
+        $params['return_url'] = 'm.alipay.com';
+        $params['notify_url'] = $notifyUrl;
+        $params['biz_content'] = json_encode($biz_content);
+
         $pay = new PayComposer($this);
         $pay->add($params);
         return $pay;
@@ -202,9 +239,9 @@ class Alipay
      * @param string $defaultSignType
      * @return static
      */
-    public static function create($partner, $signers = [], $defaultSignType = SignerInterface::TYPE_MD5)
+    public static function create($app_id, $partner, $signers = [], $defaultSignType = SignerInterface::TYPE_RSA2)
     {
-        $alipay = new static($partner);
+        $alipay = new static($app_id, $partner);
         $alipay->defaultSignType = $defaultSignType;
         foreach ((array)$signers as $signer) {
             $alipay->addSigner($signer);

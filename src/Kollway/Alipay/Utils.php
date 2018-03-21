@@ -37,7 +37,7 @@ class Utils
     public function filterParams(array $params)
     {
         unset($params['sign']);
-        unset($params['sign_type']);
+//        unset($params['sign_type']);
         return array_filter($params);
     }
 
