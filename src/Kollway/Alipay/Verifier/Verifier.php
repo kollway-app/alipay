@@ -6,8 +6,7 @@ namespace Kollway\Alipay\Verifier;
 use Kollway\Alipay\Alipay;
 use Kollway\Alipay\Utils;
 
-class Verifier
-{
+class Verifier {
 
     /**
      * The Alipay instance.
@@ -17,25 +16,15 @@ class Verifier
     protected $alipay;
 
     /**
-     * The alipay url to verify the notify id.
-     *
-     * @var string
-     */
-    protected $notifyServiceUrl = 'https://mapi.alipay.com/gateway.do?service=notify_verify&';
-
-    /**
-     * Whether the parameters are validated.
-     *
-     * @var bool
-     */
-    protected $isVerified = false;
-
-    /**
      * The parameters to be validated.
      *
      * @var array
      */
     protected $params;
+
+    // 表单提交字符集编码
+    public $postCharset = "UTF-8";
+    private $fileCharset = "UTF-8";
     
     /**
      * Create a new instance.
@@ -49,35 +38,20 @@ class Verifier
         $this->params = $params;
     }
 
-    /**
-     * Verify the notify or return data.
-     *
-     * @return bool
-     */
-    public function verify()
-    {
-        if ($this->isVerified) {
-            return true;
-        }
+    public function verify($alipay_version='v1') {
         $params = $this->params;
-        if (empty($params) || !isset($params['sign']) || !isset($params['sign_type'])) {
-            return false;
-        }
-        $utils = Utils::getInstance();
         $sign = $params['sign'];
-        $signType = $params['sign_type'];
-        $isVerified = $this->alipay->getSigner($signType)->verify($utils->createParamUrl($utils->sortParams($utils->filterParams($params))), $sign);
-        if ($isVerified) {
-            if (empty($params['notify_id'])) {
-                $this->isVerified = true;
-                return true;
-            }
-            $verify_url = $this->notifyServiceUrl . "partner=" . $this->alipay->getPartner() . "&notify_id=" . $params["notify_id"];
-            $responseTxt = $utils->getHttpClient()->executeHttpRequest($verify_url);
-            $this->isVerified = $responseTxt === 'true';
-            return $this->isVerified;
+
+        if($alipay_version == 'v1') {
+            unset($params['sign_type']);
         }
-        return false;
+
+        $utils = Utils::getInstance();
+        $params = $utils->sortParams($params);
+        $params = $utils->filterParams($params);
+        $is_valid = $this->alipay->getSigner()->verify($utils->createParamUrl($params), $sign);
+
+        return $is_valid;
     }
 
     /**

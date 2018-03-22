@@ -37,7 +37,6 @@ class Utils
     public function filterParams(array $params)
     {
         unset($params['sign']);
-//        unset($params['sign_type']);
         return array_filter($params);
     }
 
@@ -52,10 +51,23 @@ class Utils
     {
         $combinedParams = [];
         foreach ($params as $key => $val) {
-            $combinedParams[] = implode('=', [$key, $encoded ? urlencode($val) : $val]);
+            if(false === $this->checkEmpty($val) && "@" != substr($val, 0, 1)) {
+                $combinedParams[] = implode('=', [$key, $encoded ? urlencode($val) : $val]);
+            }
         }
         $url = implode('&', $combinedParams);
         return $url;
+    }
+
+    private function checkEmpty($value) {
+        if (!isset($value))
+            return true;
+        if ($value === null)
+            return true;
+        if (trim($value) === "")
+            return true;
+
+        return false;
     }
 
     /**
