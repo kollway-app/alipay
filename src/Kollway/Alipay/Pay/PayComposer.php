@@ -4,7 +4,6 @@ namespace Kollway\Alipay\Pay;
 
 
 use Kollway\Alipay\Alipay;
-use Kollway\Alipay\Signer\SignerInterface;
 use Kollway\Alipay\Utils;
 
 class PayComposer
