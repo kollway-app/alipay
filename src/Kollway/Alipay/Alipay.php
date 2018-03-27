@@ -176,7 +176,7 @@ class Alipay
     }
 
 
-    public function createBarPay($outTradeNo, $subject, $body, $fee, $app_auth_token, $auth_code) {
+    public function createBarPay($outTradeNo, $subject, $body, $fee, $auth_code, $app_auth_token='') {
         $params = $this->getParams();
         $biz_content = array(
             'timeout_express' => '30m',
@@ -193,8 +193,30 @@ class Alipay
         $params['method'] = 'alipay.trade.pay';
         $params['return_url'] = '';
         $params['notify_url'] = '';
-        $params['app_auth_token'] = $app_auth_token;
         $params['biz_content'] = json_encode($biz_content);
+
+        if($app_auth_token) {
+            $params['app_auth_token'] = $app_auth_token;
+        }
+
+        $pay = new PayComposer($this, self::DEFAULT_GATEWAY);
+        $pay->add($params);
+        return $pay;
+    }
+
+    public function queryOrder($outTradeNo, $app_auth_token='') {
+        $params = $this->getParams();
+        $biz_content = array(
+            'out_trade_no' => $outTradeNo,
+        );
+        $biz_content = array_merge($biz_content, $this->biz_params);
+
+        $params['method'] = 'alipay.trade.query';
+        $params['biz_content'] = json_encode($biz_content);
+
+        if($app_auth_token) {
+            $params['app_auth_token'] = $app_auth_token;
+        }
 
         $pay = new PayComposer($this, self::DEFAULT_GATEWAY);
         $pay->add($params);
